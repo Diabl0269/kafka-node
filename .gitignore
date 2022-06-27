@@ -1,2 +1,8 @@
+# Build
+dist
+
+# Modules
 node_modules
+
+# Env
 .env.remote

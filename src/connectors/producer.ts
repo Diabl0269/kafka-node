@@ -1,6 +1,6 @@
 import { Kafka, Partitioners } from 'kafkajs';
-import type { Producer as KafkaProducer } from 'kafkajs';
-import type { Config, EventSchema, ProducerInterface } from 'types';
+import type { Producer as KafkaProducer, Message } from 'kafkajs';
+import type { Config, ProducerInterface } from 'types';
 
 /**
  * A producer class for producing events to a message broker.
@@ -36,11 +36,11 @@ export class Producer implements ProducerInterface {
    * @param topic
    * @param event
    */
-  async produce(topic: string, event: EventSchema) {
+  async produce(topic: string, messages: Message[]) {
     try {
       await this.producer.send({
         topic,
-        messages: [event]
+        messages
       });
       return true;
     } catch (e) {

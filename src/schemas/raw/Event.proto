@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Event {
+    string username = 1;
+    repeated string email_addresses = 2;
+}

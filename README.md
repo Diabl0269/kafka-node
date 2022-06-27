@@ -6,6 +6,11 @@ Checkout `demo.ts` for the actual usage.
 
 > Written by Tal Efronny
 
+## Prerequisites:
+
+1. Docker for running the project locally.
+2. `protoc` for building Protobuf definitions.
+
 ## How to run the project:
 
 There are 2 ways to run this project, Both run with hot relod on the whole project.
@@ -14,7 +19,7 @@ There are 2 ways to run this project, Both run with hot relod on the whole proje
 
 1. Run `docker-compose up` to run [zookeeper](https://zookeeper.apache.org/) and [Kafka](https://kafka.apache.org/) docker images by [bitnami](https://bitnami.com/).
 2. Run `npm run dev` to initiate local development process.  
-   This will automatically start sending messages to Kafka which can be editted in `demo.ts`.
+   This will automatically start sending messages to Kafka which can be editted in `demo.ts`. (This will also listen for a debugger on node's default port).
 
 ### 2. Remote:
 

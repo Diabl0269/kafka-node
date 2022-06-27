@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { Event } from './src/schemas';
 import { Consumer, Producer } from './src';
 // TODO: resolve `.json` extension displaying in import path
 import { clientId, topic } from './config.json';
@@ -9,10 +10,9 @@ dotenv.config({ path: isRemote ? '.env.remote' : '.env' });
 
 const brokers = JSON.parse(process.env.BROKERS || '');
 
-const logLevel = 5;
+const logLevel = 4;
 // const logLevel = process.env.NODE_ENV === "PRODUCTION" ? 4 : 5;
 
-console.log('isRemote', isRemote);
 const consumer = new Consumer({
   brokers,
   clientId,
@@ -45,9 +45,13 @@ const init = async () => {
   console.log('Initialize server and DB');
 
   try {
-    await consumer.consume([topic], async (obj) =>
-      console.log(`I AM A MESSAGE: ${obj}`)
-    );
+    await consumer.consume([topic], async (obj) => {
+      if (obj.message.value) {
+        console.log(
+          `I AM A MESSAGE: ${Event.fromBinary(obj.message.value).username}`
+        );
+      }
+    });
   } catch (e) {
     console.log(e);
   }
@@ -55,10 +59,16 @@ const init = async () => {
   await producer.connect();
   let i = 0;
   setInterval(async () => {
-    await producer.produce(topic, {
-      key: i.toString(),
-      value: 'I AM A VALUE!'
+    const event = Event.toBinary({
+      emailAddresses: ['test-mail'],
+      username: `meuser_${i}`
     });
+    await producer.produce(topic, [
+      {
+        key: i.toString(),
+        value: Buffer.from(event)
+      }
+    ]);
     i++;
   }, 3000);
 };

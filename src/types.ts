@@ -1,7 +1,8 @@
 import type {
   KafkaConfig,
   ConsumerSubscribeTopics,
-  ConsumerRunConfig
+  ConsumerRunConfig,
+  Message
 } from 'kafkajs';
 
 export interface Config extends Pick<KafkaConfig, 'logLevel' | 'ssl' | 'sasl'> {
@@ -56,5 +57,5 @@ export interface ProducerInterface extends BaseInterafe {
    * @param  topic - The topic to produce the message to.
    * @param message - The message to produce.
    */
-  produce: (topic: string, message: EventSchema) => Promise<boolean>;
+  produce: (topic: string, messages: Message[]) => Promise<boolean>;
 }
