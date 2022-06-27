@@ -1,5 +1,0 @@
-{
-  "brokers": ["localhost:9092"],
-  "topic": "testing_topic",
-  "clientId": "my-app"
-}
