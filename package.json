@@ -13,7 +13,7 @@
   "author": "Tal Efronny",
   "license": "ISC",
   "devDependencies": {
-    "@protobuf-ts/plugin": "2.7.0",
+    "@protobuf-ts/plugin": "2.9.4",
     "@types/node": "18.0.0",
     "dotenv": "16.0.1",
     "eslint": "8.18.0",
